@@ -16,7 +16,21 @@ import random
 log = logging.getLogger(__name__)
 
 class CharacterError(Exception):
-    """Base class for Character error"""
+    # Custom exception for character-related errors
+    def __init__(self, message: str):
+        # Constructor for the CharacterError class
+        super().__init__(message)
+        self.message = message
+
+    def __str__(self):
+        # String representation of the error
+        return f"CharacterError: {self.message}"
+    
+    def __repr__(self):
+        # Representation of the error
+        return f"CharacterError: {self.message}"
+    
+
 
 class Character:
     """Base class for all characters"""
@@ -47,14 +61,24 @@ class Character:
         return f"{self._name} <{self._life:.3f}>"
     
     def take_damages(self, damage_value: float)-> bool:
-        # Calulate the damage taken by the character
+        # Verify the damage value
+        if self.is_dead:
+            raise CharacterError(f"Character {self._name} is already dead")
+        if damage_value < 0:
+            raise CharacterError(f"Damage value must be positive: {damage_value}")
+        # Calculate the damage taken by the character
         damage_taken = damage_value * (1 - self._defense)
         self._life -= damage_taken
+        # Turn life into 0 if it is negative
+        if self._life < 0:
+            self._life = 0
+        # Return "True" as a security check
         return True
     
     def attack(self, target: 'Character')-> bool:
         # Attack another character
         target.take_damages(self._attack)
+        # Return "True" as a security check
         return True
 
 
@@ -99,6 +123,7 @@ class Warrior(Character):
         if self.is_raging:
             attack_value *= 1.2
         target.take_damages(attack_value)
+        # Return "True" as a security check
         return True
 
 
@@ -116,6 +141,7 @@ class Magician(Character):
     def take_damages(self, damage_value: float)-> bool:
         # Calculate the damage taken by the character
         if self.activate_magic_shield():
+            # If the magic shield is activated, magician takes no damage
             return True
         else:
             return super().take_damages(damage_value)

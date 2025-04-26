@@ -91,6 +91,7 @@ class Library:
             raise LibraryError(f"'{person}' is not a member of the library.")
         # Add the book to the borrowed books
         self._borrowed_books[book] = person
+        # Returns "True" as a security check
         return True
     
     def return_book(self, book: Book)-> bool:
@@ -99,6 +100,7 @@ class Library:
             raise LibraryError(f"'{book.title}' is not part of the borrowed books.")
         # Remove the book from the borrowed books
         del self._borrowed_books[book]
+        # Returns "True" as a security check
         return True
     
     def add_new_member(self, person: Person)-> bool:
@@ -106,6 +108,7 @@ class Library:
         if person in self._members:
             raise LibraryError(f"Person '{person}' is already a member of the library.")
         self._members.add(person)
+        # Returns "True" as a security check
         return True
     
     def add_new_book(self, book: Book)-> bool:
@@ -113,6 +116,7 @@ class Library:
         if book in self._books:
             raise LibraryError(f"Book '{book.title}' is already in the library.")
         self._books.append(book)
+        # Returns "True" as a security check
         return True
     
     def print_status(self)-> bool:
@@ -128,9 +132,11 @@ class Library:
         print(f"Available books: {available_books}")
         print(f"Borrowed books: {self._borrowed_books}")
         print("-"*5)
+        # Returns "True" as a security check
         return True
 
 def test_script():
+    # Final test script asked to be done in the end of the exercise
     antoine = Person("Antoine", "Dupont")
     print(antoine)
 
