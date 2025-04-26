@@ -101,6 +101,7 @@ class Weapon:
 
 
 class Warrior(Character):
+    # standard life and defense values were directly changed to 150 and 0.12 to save computation time
     def __init__(self, name: str, weapon: Weapon = None, life: float = 150.0, attack: float = 20.0, defense: float = 0.12):
         # Constructor for the Warrior class
         super().__init__(name, life, attack, defense)
@@ -113,6 +114,7 @@ class Warrior(Character):
     @property
     def is_raging(self)-> bool:
         # Check if the warrior is raging
+        # Raging is activated when the life is less than 20% of the maximum life (150)
         if self._life < (150*0.2):
             return True
         return False
@@ -128,6 +130,7 @@ class Warrior(Character):
 
 
 class Magician(Character):
+    # standard life and attack values were directly changed to 80 and 40 to save computation time
     def __init__(self, name: str, life: float = 80.0, attack: float = 40.0, defense: float = 0.1):
         # Constructor for the Magician class
         super().__init__(name, life, attack, defense)
