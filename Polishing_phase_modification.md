@@ -17,13 +17,14 @@ Pour utiliser ruff, il est recommandé d'utiliser un environnement virtuel Pytho
 #### Sur Windows :
 
 ```bash
-.\venv\Scripts\activate
+.\ruff_folder\Scripts\activate
 ```
 
 #### Sur macOS/Linux :
 
 ```bash
-source venv/bin/activate
+cd ruff_folder
+source bin/activate
 ```
 
 Une fois activé, vous devriez voir le préfixe `(venv)` dans votre terminal.
