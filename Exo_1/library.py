@@ -1,3 +1,16 @@
+######################################################################
+#--*- coding: utf-8 -*-
+# library.py
+######################################################################
+# Based on course material from: OOP Python Programming ASE1 2024-2025
+# Version of: Matthieu GRIMM--KEMPF
+# Date: 2025-04-26
+# Description: This module is a library management system that allows to man
+######################################################################
+# Verification: ruff check --fix -> all checks passed
+######################################################################
+
+
 class Person:
     # Class representing a person
     def __init__(self, firstname: str, lastname: str):
@@ -57,7 +70,7 @@ class Library:
         self._members = set()
         self._borrowed_books = {}
 
-    def is_book_available(self, book: Book):
+    def is_book_available(self, book: Book) -> bool:
         # Check if a book is available if book does not exist return a LibraryError
         if book not in self._books:
             raise LibraryError(f"Book '{book.title}' is not available in the library.")
@@ -68,7 +81,7 @@ class Library:
             result = True
         return result
 
-    def borrow_book(self, book: Book, person: Person):
+    def borrow_book(self, book: Book, person: Person)-> bool:
         # Borrow a book if the book is available
         if book not in self._books:
             raise LibraryError(f"'{book.title}' doesn't exist in the library.")
@@ -78,31 +91,35 @@ class Library:
             raise LibraryError(f"'{person}' is not a member of the library.")
         # Add the book to the borrowed books
         self._borrowed_books[book] = person
+        # Returns "True" as a security check
         return True
     
-    def return_book(self, book: Book):
+    def return_book(self, book: Book)-> bool:
         # Return a book if the book is borrowed
         if book not in self._borrowed_books:
             raise LibraryError(f"'{book.title}' is not part of the borrowed books.")
         # Remove the book from the borrowed books
         del self._borrowed_books[book]
+        # Returns "True" as a security check
         return True
     
-    def add_new_member(self, person: Person):
+    def add_new_member(self, person: Person)-> bool:
         # Add a new member to the library
         if person in self._members:
             raise LibraryError(f"Person '{person}' is already a member of the library.")
         self._members.add(person)
+        # Returns "True" as a security check
         return True
     
-    def add_new_book(self, book: Book):
+    def add_new_book(self, book: Book)-> bool:
         # Add a new book to the library
         if book in self._books:
             raise LibraryError(f"Book '{book.title}' is already in the library.")
         self._books.append(book)
+        # Returns "True" as a security check
         return True
     
-    def print_status(self):
+    def print_status(self)-> bool:
         # Print the status of the library
         print(f"{self.name} status:")
         print(f"Books catalogue: {self._books}")
@@ -115,9 +132,11 @@ class Library:
         print(f"Available books: {available_books}")
         print(f"Borrowed books: {self._borrowed_books}")
         print("-"*5)
+        # Returns "True" as a security check
         return True
 
 def test_script():
+    # Final test script asked to be done in the end of the exercise
     antoine = Person("Antoine", "Dupont")
     print(antoine)
 

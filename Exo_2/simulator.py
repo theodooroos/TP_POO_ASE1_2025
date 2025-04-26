@@ -1,3 +1,14 @@
+####################################################################
+# simulator.py
+# -*- coding: utf-8 -*-
+####################################################################
+# Based on course material from: OOP Python Programming ASE1 2024-2025
+# Has not been modified
+######################################################################
+# Verification: ruff check --fix -> all checks passed
+####################################################################
+
+
 import logging
 import random
 
