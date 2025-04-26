@@ -1,9 +1,19 @@
+######################################################################
+#--*- coding: utf-8 -*-
+#  Character.py
+######################################################################
+# Based on course material from: OOP Python Programming ASE1 2024-2025
+# Version of: Matthieu GRIMM--KEMPF
+# Date: 2025-04-26
+# Description: This module defines a base class for characters and two derived classes: Warrior and Magician.
+######################################################################
+# Verification: ruff check --fix -> all checks passed
+# ########################################################################
+
 import logging
-
-log = logging.getLogger(__name__)
-
 import random
 
+log = logging.getLogger(__name__)
 
 class CharacterError(Exception):
     """Base class for Character error"""
@@ -18,12 +28,12 @@ class Character:
         self._defense = defense
 
     @property
-    def name(self):
+    def name(self)-> str:
         # Get the name property
         return self._name
     
     @property
-    def is_dead(self):
+    def is_dead(self)-> bool:
         # Check if the character is dead
         return self._life <= 0
     
@@ -36,13 +46,13 @@ class Character:
         # Representation of the character
         return f"{self._name} <{self._life:.3f}>"
     
-    def take_damages(self, damage_value: float):
+    def take_damages(self, damage_value: float)-> bool:
         # Calulate the damage taken by the character
         damage_taken = damage_value * (1 - self._defense)
         self._life -= damage_taken
         return True
     
-    def attack(self, target: 'Character'):
+    def attack(self, target: 'Character')-> bool:
         # Attack another character
         target.take_damages(self._attack)
         return True
@@ -56,12 +66,12 @@ class Weapon:
     
     @classmethod
     # Alternative constructor for a weapon called "Wood stick" and attack value of 1.0
-    def wood_stick(cls):
+    def wood_stick(cls)-> 'Weapon':
         # Create a wood stick weapon
         return cls("Wood stick", 1.0)
 
     @property
-    def name(self):
+    def name(self)-> str:
         # Get the name property
         return self._name
 
@@ -77,13 +87,13 @@ class Warrior(Character):
             self._weapon = weapon
     
     @property
-    def is_raging(self):
+    def is_raging(self)-> bool:
         # Check if the warrior is raging
         if self._life < (150*0.2):
             return True
         return False
 
-    def attack(self, target: 'Character'):
+    def attack(self, target: 'Character')-> bool:
         # Attack another character
         attack_value = self._attack + self._weapon.attack
         if self.is_raging:
@@ -97,13 +107,13 @@ class Magician(Character):
         # Constructor for the Magician class
         super().__init__(name, life, attack, defense)
 
-    def activate_magic_shield(self):
+    def activate_magic_shield(self)-> bool:
         # Activate the magic shield 1 chance out of 3
         if random.randint(0, 2) == 0:
             return True
         return False
     
-    def take_damages(self, damage_value: float):
+    def take_damages(self, damage_value: float)-> bool:
         # Calculate the damage taken by the character
         if self.activate_magic_shield():
             return True

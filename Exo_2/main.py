@@ -1,3 +1,15 @@
+######################################################################
+#--*- coding: utf-8 -*-
+#  main.py
+######################################################################
+# Based on course material from: OOP Python Programming ASE1 2024-2025
+# Version of: Matthieu GRIMM--KEMPF
+# Date: 2025-04-26
+# Description: This module contains the main function to run the fight simulator.
+######################################################################
+# Verification: ruff check --fix -> all checks passed
+######################################################################
+
 import logging
 import sys
 
